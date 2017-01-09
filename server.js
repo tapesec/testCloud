@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 
-app.listen(parseInt(process.env.port, 10), function() {
+app.listen(parseInt(process.env.PORT, 10), function() {
 	console.log('FRONT démaré !');
 });
 
