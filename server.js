@@ -1,5 +1,9 @@
 var express = require('express');
+var azure = require('azure-storage');
 var app = express();
+
+var keyStorageAPI = "G3z3QyaGOyuylLuqLc9gQPM+PnDvDgWNMWPexJTOMpVa/f3cnHQEU1CdBVNxfun8UB97UVNTCrGC7ZWjrTQK8A==";
+
 
 function normalizePort(val) {
     var port = parseInt(val, 10);
@@ -32,5 +36,19 @@ app.get('/', function(req, res, next) {
 });
 
 app.get('/process', function(req, res, next) {
-	res.send('voilà maitre');
+	var queueService = azure.createQueueService("lectracloudlioaccount", keyStorageAPI);
+	queueService.createQueueIfNotExists('Q1', function(error) {
+  		if (!error) {
+    		// Queue exists
+    		queueService.createMessage('taskQ1', 'process calcul', function(error) {
+				if (!error) {
+				    // Message inserted
+				    res.send('voilà maitre');
+				} else {
+					res.send("Erreur dans le cloud !");
+				}
+			});
+
+  		}
+	});
 });
