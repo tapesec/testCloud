@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CLOUD calcul</title>
+</head>
+<body>
+	<section style="width: 400px; margin: auto; border: 3px solid black;">
+		<h1 style="text-align: center;">Mon appli de calcul</h1>
+		<p>Calcul moi ...</p>
+		<button id="btn">Vas y !</button>
+		<h2 style="text-align: center;color: green;" id="resultat"></h2>
+	</section>
+	<script type="text/javascript">
+		var btn = document.getElementById("btn");
+		var result = document.getElementById('resultat');
+		btn.addEventListener('click', function() {
+			var req = new XMLHttpRequest();
+		req.open('GET', '/process', true);
+		req.onreadystatechange = function (aEvt) {
+		  if (req.readyState == 4) {
+		     if(req.status == 200) {
+		      console.log(req.responseText);
+		  		result.innerHTML = req.responseText;
+		     } else
+		      console.log('error');
+		  }
+		};
+		req.send(null);
+		});
+	</script>
+</body>
+</html>
