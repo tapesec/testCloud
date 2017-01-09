@@ -37,10 +37,10 @@ app.get('/', function(req, res, next) {
 
 app.get('/process', function(req, res, next) {
 	var queueService = azure.createQueueService("lectracloudlioaccount", keyStorageAPI);
-	queueService.createQueueIfNotExists('Queue1', function(error) {
+	queueService.createQueueIfNotExists('lionnelq', function(error) {
   		if (!error) {
     		// Queue exists
-    		queueService.createMessage('taskQ1', 'process calcul', function(error) {
+    		queueService.createMessage('tasklionnel', 'process calcul', function(error) {
 				if (!error) {
 				    // Message inserted
 				    res.send('voilà maitre');
